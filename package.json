@@ -1,0 +1,20 @@
+{
+  "name": "bun-cloudflare-ai",
+  "module": "f.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch run f.ts --open",
+    "start": "bun run f.ts",
+    "build": "bun build f.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@elysiajs/stream": "^0.8.0",
+    "elysia": "^0.8.14"
+  }
+}
