@@ -1,5 +1,6 @@
 {
   "name": "bun-cloudflare-ai",
+  "version": "0.0.1",
   "module": "f.ts",
   "type": "module",
   "scripts": {
