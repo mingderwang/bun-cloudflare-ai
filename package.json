@@ -1,13 +1,13 @@
 {
   "name": "bun-cloudflare-ai",
   "version": "0.0.2",
-  "module": "f.ts",
+  "module": "index.ts",
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "bun --watch run f.ts --open",
-    "start": "bun run f.ts",
-    "build": "bun-vercel ./f.ts"
+    "dev": "bun --watch run ./src/index.ts --open",
+    "start": "bun run ./src/index.ts",
+    "build": "bun-vercel ./src/index.ts"
   },
   "devDependencies": {
     "bun-vercel": "^1.0.0-alpha.5",

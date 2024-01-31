@@ -1,10 +1,11 @@
-import { Elysia } from "elysia";
+import { Server } from "bun";
+
 
 const model = "@cf/meta/llama-2-7b-chat-int8";
 const endpoint = `https://api.cloudflare.com/client/v4/accounts/${process.env.ACCOUNT_ID}/ai/run/${model}`;
 console.log(endpoint);
 
-async function gatherResponse(response) {
+async function gatherResponse(response: Response) {
   const { headers } = response;
   const contentType = headers.get("content-type") || "";
   if (contentType.includes("application/json")) {
@@ -19,20 +20,8 @@ const init = {
   },
 };
 
-const app = new Elysia()
-  .get("/r", ({headers, set, cookie: { name }}: any) => {
-      name.value = {
-        id: 617,
-        name: 'Summoning 101'
-    }
-    name.httpOnly = true
-    return headers
-  })
-  .get("/", ({ headers }) => {
- return `http://${headers?.host}/ai?prompt='you can ask me any thing.'`
-})
-
-  .get("/ai", async ( { query: { prompt } }) => {
+export default {
+  async fetch(request: Request, server: Server) {
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -42,13 +31,11 @@ const app = new Elysia()
       body: JSON.stringify({
         messages: [
           { role: "system", content: "You are a friendly assistant" },
-          { role: "user", content: prompt },
+          { role: "user", content: 'Is Taiwan a country?' },
         ],
       }),
     });
     const body = await gatherResponse(response);
     return new Response(body, init);
-  })
-  .listen(3000);
-
-console.log(`🦊 Elysia is running at on port ${app.server?.port}...`)
+  }
+}
